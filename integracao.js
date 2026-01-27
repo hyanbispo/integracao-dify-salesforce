@@ -1,7 +1,8 @@
+require('dotenv').config();
 const readline = require('readline');
 const fs = require('fs');
 
-const API_KEY = 'Bearer app-dmYj1J2zsEEBITJ7FtPWxCBA'; 
+const API_KEY = process.env.DIFY_API_KEY; 
 const URL = 'https://api.dify.ai/v1/chat-messages';
 
 const rl = readline.createInterface({
@@ -10,13 +11,16 @@ const rl = readline.createInterface({
 });
 
 function registrarErro(mensagem) {
-    const dataHora = new Date().toLocaleString();
-    const logMensagem = `[${dataHora}] ERRO: ${mensagem}\n`;
-    
+    const logMensagem = `[${new Date().toLocaleString()}] ERRO: ${mensagem}\n`;
     fs.appendFileSync('logs.txt', logMensagem);
 }
 
 async function chamarIA(pergunta) {
+    if (!API_KEY) {
+        console.error("❌ Erro: API_KEY não encontrada no arquivo .env");
+        return;
+    }
+
     try {
         const response = await fetch(URL, {
             method: 'POST',
@@ -32,18 +36,12 @@ async function chamarIA(pergunta) {
             })
         });
 
-        if (!response.ok) {
-            throw new Error(`Falha na API Dify - Status: ${response.status}`);
-        }
-
         const data = await response.json();
-        const respostaLimpa = data.answer.trim();
-
-        console.log(`\n🤖 IA: ${respostaLimpa}\n`);
+        console.log(`\n🤖 IA: ${data.answer.trim()}\n`);
         iniciarChat(); 
     } catch (error) {
-        console.error("\n❌ Algo deu errado. Verifique o arquivo logs.txt.");
         registrarErro(error.message);
+        console.error("\n❌ Erro registrado no logs.txt");
         iniciarChat();
     }
 }
@@ -51,7 +49,6 @@ async function chamarIA(pergunta) {
 function iniciarChat() {
     rl.question('👤 Você: ', (input) => {
         if (input.toLowerCase() === 'sair') {
-            console.log("Encerrando chat....");
             rl.close();
             return;
         }
@@ -60,5 +57,5 @@ function iniciarChat() {
 }
 
 console.clear();
-console.log("=== CHAT COM MONITORAMENTO DE LOGS ATIVO ===");
+console.log("=== CHAT COM ASSISTENTE VIRTUAL ===");
 iniciarChat();
