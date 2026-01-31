@@ -16,9 +16,4 @@ Devido a limitações de ambiente em instâncias Starter do Salesforce, este pro
 - **Dify.ai**: Orquestração de LLM e Agentes de IA.
 - **JavaScript (ES6+)**: Lógica de programação e tratamento de promessas (Async/Await).
 
-Este repositório demonstra competências em:
-1. **Engenharia de Software**: Separação de responsabilidades e tratamento de exceções.
-2. **Arquitetura de Integração**: Domínio de fluxos HTTP e segurança de APIs.
-3. **Resolução de Problemas**: Capacidade de criar ambientes de teste alternativos para validar requisitos técnicos de negócio.
-
 Projeto feito apenas para fins de treinar as dinâmicas de programação.
