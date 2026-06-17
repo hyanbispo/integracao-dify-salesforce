@@ -15,5 +15,3 @@ Devido a limitações de ambiente em instâncias Starter do Salesforce, este pro
 - **Node.js**: Motor de execução do projeto.
 - **Dify.ai**: Orquestração de LLM e Agentes de IA.
 - **JavaScript (ES6+)**: Lógica de programação e tratamento de promessas (Async/Await).
-
-Projeto feito apenas para fins de treinar as dinâmicas de programação.
